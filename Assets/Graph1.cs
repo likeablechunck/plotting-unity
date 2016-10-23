@@ -7,12 +7,12 @@ public class Graph1 : MonoBehaviour
     //public ParticleSystem my_Particle;
     private ParticleSystem.Particle[] points;
     int i = 0;
-    int z = 0; 
+    
 
     // Use this for initialization
     void Start ()
     {
-        positionCalculator();
+        //positionCalculator();
         //my_Particle = new ParticleSystem();
         //points = new ParticleSystem.Particle[GRID_POINTS];
 
@@ -39,25 +39,47 @@ public class Graph1 : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //my_Particle.SetParticles(points, points.Length);      
-        
+        CreatePoints();
+
         this.GetComponent<ParticleSystem>().SetParticles(points, points.Length);
 
     }
 
-    public void positionCalculator()
+    //public void positionCalculator()
+    //{
+        
+    //    float[,] dataY = new float[GRID_POINTS, GRID_POINTS];
+    //    for ( int x = 0; x < GRID_POINTS; x++)
+    //    {
+    //        print("point position is at : " + points[i].position);
+    //        for ( int z = 0; z < GRID_POINTS; z++)
+    //        {
+    //            dataY[x, z] = -((x - GRID_POINTS / 2) * (x - GRID_POINTS / 2) + (z - GRID_POINTS / 2) * (z - GRID_POINTS / 2)) / 500f + 10f;
+               
+    //        }
+    //        //dataY[x,z] = -((x - GRID_POINTS / 2) * (x - GRID_POINTS / 2) + (z - GRID_POINTS / 2) * (z - GRID_POINTS / 2)) / 500f + 10f;
+    //        //points[i].position = new Vector3(x, dataY[x, z], z);
+    //        //points[i].size = 0.1f;
+    //        //i++;           
+    //    }
+    //}
+
+    public void CreatePoints()
     {
-        points = new ParticleSystem.Particle[GRID_POINTS];
+        points = new ParticleSystem.Particle[GRID_POINTS*GRID_POINTS];
+
         float[,] dataY = new float[GRID_POINTS, GRID_POINTS];
+
         for (int x = 0; x < GRID_POINTS; x++)
         {
-            print("point position is at : " + points[i].position);
-            z = x;
-            dataY[x,z] = -((x - GRID_POINTS / 2) * (x - GRID_POINTS / 2) + (z - GRID_POINTS / 2) * (z - GRID_POINTS / 2)) / 500f + 10f;
-            points[i].position = new Vector3(x, dataY[x, z], z);
-            points[i].size = 0.1f;
-            i++;
-        }
+            for (int z = 0; z < GRID_POINTS; z++)
+            {
+                dataY[x, z] = -((x - GRID_POINTS / 2) * (x - GRID_POINTS / 2) + (z - GRID_POINTS / 2) * (z - GRID_POINTS / 2)) / 500f + 10f;
+                Vector3 pose = new Vector3(x ,dataY[x,z] , z);
+                points[i].position = pose;
+                points[i++].size = 0.1f;
 
+            }
+        }
     }
 }
