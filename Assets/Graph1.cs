@@ -4,7 +4,7 @@ using System.Collections;
 public class Graph1 : MonoBehaviour
 {
     //given data
-    int GRID_POINTS = 100;
+    public int GRID_POINTS = 100;
     //creating an array of particles
     private ParticleSystem.Particle[] points;
     //particle index
